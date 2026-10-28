@@ -41,7 +41,7 @@ Prévia em projeto Vercel separado, sem conexão Git. O projeto digital-store e 
 
 # Atualização: cadastros editáveis
 
-A pedido de Pedro, a etapa seguinte substitui os campos fixos por dados pessoais e de entrega editáveis, somente para personagens inventados. Até cinco cadastros ficam no armazenamento local do navegador, sem envio ao servidor. Nome e CPF fictícios preenchidos aparecem no perfil escolhido. É possível editar, trocar cadastro e excluir com confirmação. E-mail duplicado e sexto cadastro são recusados sem apagar os existentes. Exemplos legados de nome/e-mail são preservados; os demais campos podem ser completados em Editar.
+A etapa seguinte substitui os campos fixos por dados pessoais e de entrega editáveis, somente para personagens inventados. Até cinco cadastros ficam no armazenamento local do navegador, sem envio ao servidor. Nome e CPF fictícios preenchidos aparecem no perfil escolhido. É possível editar, trocar cadastro e excluir com confirmação. E-mail duplicado e sexto cadastro são recusados sem apagar os existentes. Exemplos legados de nome/e-mail são preservados; os demais campos podem ser completados em Editar.
 
 O login é uma escolha de cadastro pelo e-mail ou pela lista, sem senha real. Os campos de cartão/validade/CVV continuam mascarados e não editáveis. No checkout, o perfil selecionado preenche os campos; alterações ali só valem para aquele pedido. O recibo guarda uma cópia dos dados da simulação e não muda quando o cadastro é editado. Excluir um cadastro não apaga recibos, que podem ser removidos em Meus Pedidos.
 
