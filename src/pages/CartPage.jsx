@@ -8,11 +8,10 @@ import {
   cartTotal,
 } from "../services/demoCart";
 import { money } from "../data/products";
-import { createOrder } from "../services/demoOrders";
 
 export default function CartPage() {
   const [items, setItems] = useState(loadCart);
-  const [message, setMessage] = useState("");
+  const message = "";
 
   if (items.length === 0) {
     return (
@@ -24,9 +23,8 @@ export default function CartPage() {
           </p>
         ) : (
           <p>
-            Escolha um produto, selecione tamanho e cor e clique em Comprar
-            para testar o fluxo. Nenhuma compra ou pagamento acontece neste
-            site.
+            Escolha um produto, selecione tamanho e cor e clique em Comprar para
+            testar o fluxo. Nenhuma compra ou pagamento acontece neste site.
           </p>
         )}
         <Link className="button" to="/products">
@@ -43,8 +41,8 @@ export default function CartPage() {
       </nav>
       <h1>Carrinho de demonstração</h1>
       <p className="demo-note">
-        Simulação salva só neste navegador. Não há pagamento, pedido nem
-        entrega reais.
+        Simulação salva só neste navegador. Não há pagamento, pedido nem entrega
+        reais.
       </p>
       <ul className="cart-items">
         {items.map((item) => (
@@ -104,29 +102,9 @@ export default function CartPage() {
           <button className="button buy" onClick={() => setItems(clearCart())}>
             Esvaziar carrinho
           </button>
-          <button
-            className="button buy"
-            onClick={() => {
-              const result = createOrder(items, cartTotal(items));
-              if (result.ok) {
-                setItems(clearCart());
-                setMessage(
-                  <>
-                    Pedido {result.order.id} registrado como pendente na
-                    simulação. Acompanhe em{" "}
-                    <Link to="/pedidos">Meus Pedidos</Link>. Nenhum valor foi
-                    cobrado e nada será entregue.
-                  </>,
-                );
-              } else {
-                setMessage(
-                  "Não foi possível salvar o pedido neste navegador. Verifique se o armazenamento local está disponível.",
-                );
-              }
-            }}
-          >
+          <Link className="button buy" to="/finalizar-compra">
             Finalizar compra
-          </button>
+          </Link>
         </div>
         {message && (
           <p className="feedback" role="status">

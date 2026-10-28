@@ -32,13 +32,21 @@ function save(orders) {
 }
 
 // Cria um pedido de simulação a partir dos itens do carrinho. Nasce "pendente".
-export function createOrder(items, total) {
+export function createOrder(items, total, options = {}) {
   const orders = loadOrders();
+  if (options.checkoutId) {
+    const existing = orders.find(
+      (order) => order.checkoutId === options.checkoutId,
+    );
+    if (existing) return { ok: true, order: existing };
+  }
   const order = {
+    ...(options.checkoutId ? { checkoutId: options.checkoutId } : {}),
     id: `SIM-${Date.now()}`,
     createdAt: new Date().toISOString(),
     items: items.map((item) => ({
       name: item.name,
+      image: item.image,
       size: item.size,
       color: item.color,
       unitPrice: item.unitPrice,
@@ -46,6 +54,10 @@ export function createOrder(items, total) {
     })),
     total,
     status: "pendente",
+    ...(options.profile ? { profile: options.profile } : {}),
+    ...(options.paymentMethod
+      ? { demoVersion: 2, paymentMethod: options.paymentMethod }
+      : {}),
   };
   if (!save([order, ...orders])) return { ok: false, order: null };
   return { ok: true, order };

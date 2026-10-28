@@ -56,8 +56,7 @@ export default function OrdersPage() {
               </span>
             </div>
             <small>
-              Simulado em{" "}
-              {new Date(order.createdAt).toLocaleString("pt-BR")}
+              Simulado em {new Date(order.createdAt).toLocaleString("pt-BR")}
             </small>
             <ul className="order-items">
               {order.items.map((item, index) => (
@@ -71,6 +70,11 @@ export default function OrdersPage() {
             <p className="order-total">
               Total da simulação: <strong>{money(order.total)}</strong>
             </p>
+            {order.demoVersion === 2 && (
+              <Link to={`/compra/sucesso/${order.id}`}>
+                Ver recibo da simulação
+              </Link>
+            )}
             <div className="order-actions">
               {order.status === "pendente" && (
                 <button

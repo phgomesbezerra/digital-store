@@ -1,116 +1,211 @@
 import { useState } from "react";
-import { Link } from "react-router";
+import { Link, useNavigate, useLocation } from "react-router";
+import Logo from "../components/Logo";
 import {
-  MAX_DEMO_ACCOUNTS,
-  addAccount,
-  addExamples,
-  clearAccounts,
-  findAccount,
-  loadAccounts,
-  removeAccount,
-} from "../services/demoAccounts";
-
+  DemoNote,
+  PersonalFields,
+  DeliveryFields,
+} from "../components/DemoForms";
+import {
+  DEMO_PROFILE,
+  enterDemo,
+  emptyProfile,
+  updateProfile,
+} from "../services/demoProfile";
+import { loadAccounts, ACCOUNT_ERRORS } from "../services/demoAccounts";
 export default function AuthPage({ mode }) {
-  const isSignup = mode === "cadastro";
-  const [accounts, setAccounts] = useState(loadAccounts);
-  const [message, setMessage] = useState(null);
-
-  function submit(event) {
-    event.preventDefault();
-    const form = event.currentTarget;
-    const data = new FormData(form);
-    const email = String(data.get("email") ?? "");
-    if (isSignup) {
-      const result = addAccount(String(data.get("nome") ?? ""), email);
-      setAccounts(result.list);
-      if (result.ok) {
-        form.reset();
-        setMessage({ ok: true, text: `Cadastro de demonstração salvo neste navegador (${result.list.length} de ${MAX_DEMO_ACCOUNTS}). Não é uma conta real.` });
-      } else if (result.reason === "duplicado") {
-        setMessage({ ok: false, text: "Esse e-mail de exemplo já está cadastrado." });
-      } else if (result.reason === "limite") {
-        setMessage({ ok: false, text: `Limite de ${MAX_DEMO_ACCOUNTS} cadastros de demonstração atingido. Remova um para cadastrar outro.` });
-      } else {
-        setMessage({ ok: false, text: "Este navegador não permite salvar dados locais (modo privado?). Nada foi salvo." });
-      }
-    } else {
-      const found = findAccount(email);
-      setMessage(
-        found
-          ? { ok: true, text: `Login de demonstração: encontrei o cadastro de exemplo de ${found.nome}. Ninguém foi autenticado de verdade, não há senha.` }
-          : { ok: false, text: "Nenhum cadastro de demonstração com esse e-mail neste navegador. Faça o cadastro primeiro." },
-      );
+  const location = useLocation();
+  const [profile, setProfile] = useState(() => ({
+    ...emptyProfile(),
+    email: location.state?.email ?? "",
+  }));
+  const [email, setEmail] = useState("");
+  const accounts = loadAccounts();
+  const navigate = useNavigate(),
+    signup = mode === "cadastro",
+    complete = mode === "formulario";
+  const [acknowledged, setAcknowledged] = useState(false);
+  const [message, setMessage] = useState(""),
+    [offers, setOffers] = useState(false);
+  function submit(e) {
+    e.preventDefault();
+    if (signup) {
+      navigate("/cadastro/dados", { state: { email } });
+      return;
     }
+    if (complete) {
+      const result = updateProfile(profile);
+      if (result.ok && !result.sessionError) navigate("/perfil");
+      else
+        setMessage(
+          result.sessionError
+            ? "Cadastro salvo. Entre com o e-mail escolhido para continuar."
+            : ACCOUNT_ERRORS[result.reason],
+        );
+      return;
+    }
+    if (enterDemo(email)) navigate("/perfil");
+    else
+      setMessage(
+        "Cadastro não encontrado. Escolha um exemplo salvo abaixo ou crie uma conta fictícia.",
+      );
   }
 
   return (
-    <div className="container auth">
-      <h1>{isSignup ? "Cadastre-se" : "Entrar"}</h1>
-      <p>
-        {isSignup
-          ? `Demonstração: até ${MAX_DEMO_ACCOUNTS} cadastros de exemplo ficam salvos só neste navegador, mesmo depois de fechar a página.`
-          : "Demonstração: confere se o e-mail está entre os cadastros de exemplo salvos neste navegador. Não há senha."}
-      </p>
-      <p className="auth-warning">
-        Não digite dados reais. Não existe servidor, senha nem conta de
-        verdade, e os cadastros não passam para outros computadores.
-      </p>
-      <form className="auth-form" onSubmit={submit}>
-        {isSignup && (
-          <label>
-            Nome de exemplo
-            <input name="nome" autoComplete="off" placeholder="Ex.: Maria Exemplo" required />
-          </label>
-        )}
-        <label>
-          E-mail de exemplo
-          <input name="email" type="email" autoComplete="off" placeholder="exemplo@exemplo.com" required />
-        </label>
-        <button className="button" type="submit">
-          {isSignup ? "Cadastrar (demonstração)" : "Entrar (demonstração)"}
-        </button>
-      </form>
-      {message && (
-        <div className={message.ok ? "auth-done" : "auth-done auth-error"} role="status">
-          <p>{message.text}</p>
+    <>
+      <div className="auth-brand">
+        <Logo />
+      </div>
+      {complete ? (
+        <div className="signup-complete">
+          <h1>Criar Conta</h1>
+          <DemoNote />
+          <button
+            type="button"
+            className="text-link fill-example"
+            onClick={() => setProfile({ ...emptyProfile(), ...DEMO_PROFILE })}
+          >
+            Preencher exemplo fictício
+          </button>
+          <form onSubmit={submit}>
+            <PersonalFields profile={profile} onChange={setProfile} />
+            <DeliveryFields profile={profile} onChange={setProfile} />
+            <label className="offers">
+              <input
+                type="checkbox"
+                checked={offers}
+                onChange={(e) => setOffers(e.target.checked)}
+              />{" "}
+              Quero receber por email ofertas e novidades das lojas da Digital
+              Store. <small>Opção fictícia, sem inscrição ou envio.</small>
+            </label>
+            <label className="fictional-ack">
+              <input
+                required
+                type="checkbox"
+                checked={acknowledged}
+                onChange={(e) => setAcknowledged(e.target.checked)}
+              />{" "}
+              Estou criando um personagem com dados inventados.
+            </label>
+            <button className="button wide">Criar Conta</button>
+          </form>
+          {message && <p role="alert">{message}</p>}
+        </div>
+      ) : (
+        <div className="auth-stage">
+          <div className="container auth-scene">
+            <section className="auth-panel">
+              <h1>{signup ? "Crie sua conta" : "Acesse sua conta"}</h1>
+              <p>
+                {signup
+                  ? "Já possui uma conta? Entre "
+                  : "Novo cliente? Então registre-se "}
+                <Link to={signup ? "/login" : "/cadastro"}>aqui</Link>.
+              </p>
+              <DemoNote />
+              <form onSubmit={submit}>
+                <label className="demo-field">
+                  {signup ? "Email" : "Login"} *
+                  <input
+                    required
+                    type="email"
+                    maxLength={120}
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="personagem@exemplo.invalid"
+                    autoComplete="off"
+                    aria-label="E-mail fictício"
+                  />
+                </label>
+                {!signup && (
+                  <label className="demo-field">
+                    Senha *
+                    <input
+                      readOnly
+                      value="••••••••"
+                      aria-label="Senha demonstrativa, não editável"
+                    />
+                  </label>
+                )}
+                {!signup && (
+                  <button
+                    type="button"
+                    className="text-link forgot"
+                    onClick={() =>
+                      setMessage(
+                        "Não há senha real. Digite o e-mail de um cadastro salvo ou escolha um exemplo abaixo.",
+                      )
+                    }
+                  >
+                    Esqueci minha senha
+                  </button>
+                )}
+                <button className="button wide">
+                  {signup ? "Criar Conta" : "Acessar Conta"}
+                </button>
+              </form>
+              {!signup && (
+                <section className="saved-accounts">
+                  <h2>Cadastros neste navegador ({accounts.length}/5)</h2>
+                  {accounts.length ? (
+                    accounts.map((a) => (
+                      <button
+                        type="button"
+                        key={a.email}
+                        onClick={() => {
+                          if (enterDemo(a.email)) navigate("/perfil");
+                          else
+                            setMessage(
+                              "Não foi possível iniciar a sessão local.",
+                            );
+                        }}
+                      >
+                        {a.nome}
+                        <small>{a.email}</small>
+                      </button>
+                    ))
+                  ) : (
+                    <p>
+                      Nenhum cadastro ainda.{" "}
+                      <Link to="/cadastro">Criar conta fictícia</Link>
+                    </p>
+                  )}
+                </section>
+              )}
+              <div className="social-demo">
+                Ou faça login com{" "}
+                <button
+                  aria-label="Google demonstrativo"
+                  onClick={() =>
+                    setMessage(
+                      "Login social apenas ilustrativo nesta demonstração.",
+                    )
+                  }
+                >
+                  G
+                </button>
+                <button
+                  aria-label="Facebook demonstrativo"
+                  onClick={() =>
+                    setMessage(
+                      "Login social apenas ilustrativo nesta demonstração.",
+                    )
+                  }
+                >
+                  f
+                </button>
+              </div>
+              {message && <p role="status">{message}</p>}
+            </section>
+            <img
+              className="auth-sneakers"
+              src="/design/auth-sneakers.png"
+              alt=""
+            />
+          </div>
         </div>
       )}
-      {isSignup && (
-        <section className="auth-list" aria-label="Cadastros de demonstração salvos">
-          <h2>
-            Cadastros salvos ({accounts.length} de {MAX_DEMO_ACCOUNTS})
-          </h2>
-          {accounts.length === 0 ? (
-            <p>Nenhum ainda.</p>
-          ) : (
-            <ul>
-              {accounts.map((a) => (
-                <li key={a.email}>
-                  <span>
-                    {a.nome} <small>{a.email}</small>
-                  </span>
-                  <button type="button" onClick={() => setAccounts(removeAccount(a.email))}>
-                    Remover
-                  </button>
-                </li>
-              ))}
-            </ul>
-          )}
-          <div className="auth-actions">
-            <button type="button" onClick={() => { setAccounts(addExamples()); setMessage({ ok: true, text: "Exemplos fictícios adicionados até completar 5." }); }} disabled={accounts.length >= MAX_DEMO_ACCOUNTS}>
-              Adicionar exemplos fictícios
-            </button>
-            <button type="button" onClick={() => { setAccounts(clearAccounts()); setMessage(null); }} disabled={accounts.length === 0}>
-              Limpar todos
-            </button>
-          </div>
-        </section>
-      )}
-      <p>
-        <Link to={isSignup ? "/login" : "/cadastro"}>
-          {isSignup ? "Já cadastrou? Entrar" : "Não tem cadastro? Cadastre-se"}
-        </Link>
-      </p>
-    </div>
+    </>
   );
 }

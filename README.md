@@ -9,9 +9,11 @@ Loja virtual desenvolvida em React como projeto final do curso de Front-end da D
 - **Página de detalhe** com galeria, miniaturas, seleção de tamanho/cor e compra simulada que adiciona ao carrinho
 - **Consumo real de API**: as páginas buscam o catálogo em `/api/products` (ver seção API abaixo)
 - **Layout responsivo** testado em 320px, 390px e 1280px
-- Cadastro e login de demonstração: até 5 cadastros de exemplo (nome e e-mail fictícios, sem senha) ficam salvos no localStorage do navegador e continuam após atualizar ou fechar a página; dá para remover, limpar ou adicionar 5 exemplos prontos. O login só confere se o e-mail está entre os salvos
+- **Cadastro, login e perfil de demonstração**: até 5 personagens com nome, CPF fictício, e-mail fictício, celular e entrega editáveis. Seleção pelo e-mail ou lista, edição e exclusão com confirmação. Dados somente no localStorage, sem envio ao servidor ou senha real.
 - **Carrinho de demonstração**: ao escolher tamanho e cor, o botão Comprar adiciona o produto ao carrinho (salvo no navegador, com contador no cabeçalho). Dá para mudar quantidades, remover itens, esvaziar e ver subtotais e total somados automaticamente. O aviso de validação diz exatamente o que falta escolher (tamanho, cor ou ambos)
-- **Meus Pedidos de demonstração**: Finalizar compra registra um pedido simulado como pendente; em Meus Pedidos aparece o relatório das simulações (itens, quantidades, total e status pendente/finalizado), com opção de finalizar a simulação ou remover do histórico. Tudo só neste navegador
+- **Mini-carrinho** no cabeçalho com itens, quantidades, total, Esvaziar e Ver Carrinho; fecha ao clicar fora ou pressionar Escape.
+- **Checkout de demonstração** com dados pessoais e entrega preenchidos pelo cadastro escolhido, pagamento ilustrativo e resumo calculado. Confirmação gera recibo persistente e imprimível. Cartão, validade e CVV não são editáveis.
+- **Meus Pedidos de demonstração**: A confirmação do checkout registra um pedido simulado como pendente; em Meus Pedidos aparece o relatório das simulações (itens, quantidades, total e status pendente/finalizado), com opção de finalizar a simulação ou remover do histórico. Tudo só neste navegador
 
 ## Tecnologias
 
@@ -75,7 +77,12 @@ O catálogo é de demonstração, montado a partir do layout do Figma; preços e
 - `/product/:id`: detalhe do produto
 - `/carrinho`: carrinho de demonstração
 - `/pedidos`: relatório de pedidos de demonstração (pendentes/finalizados)
-- `/cadastro` e `/login`: telas de demonstração (sem senha nem conta real)
+- `/cadastro`: entrada para criação de personagem
+- `/cadastro/dados`: formulário completo de cadastro fictício
+- `/login`: seleção de cadastro local (sem autenticação real)
+- `/perfil` e `/perfil/pagamentos`: informações, edição, troca e exclusão de cadastro
+- `/finalizar-compra`: checkout simulado
+- `/compra/sucesso/:id`: recibo da simulação salvo neste navegador
 
 ## Estrutura
 
@@ -96,7 +103,7 @@ Este repositório começou de uma base de exercícios que ainda não era uma loj
 
 A versão atual implementa a loja do layout: rotas próprias, catálogo com busca, filtros e ordenação, galeria com miniaturas, compra simulada com carrinho e relatório de pedidos de demonstração, responsividade, fonte Inter e as seis fotos originais recuperadas do Figma. Ícones e medidas das três páginas foram comparados aos frames originais exportados. Como extra, o catálogo passou a ser consumido de uma API real mantida no projeto.
 
-Créditos atualizados em 28/10/2026: Pedro Henrique, Anderson Maia e Anderson Oliveira, sem nome de equipe definido. Antes, os demais integrantes estavam pendentes de confirmação; agora os três nomes constam no rodapé e na documentação.
+Créditos atualizados em 28/10/2026: Pedro Henrique, Anderson Maia e Anderson Oliveira. Antes, os demais integrantes estavam pendentes de confirmação; agora os três nomes constam no rodapé e na documentação.
 
 A descrição detalhada do antes/depois, critério por critério, está em [docs/RELATORIO-APRENDIZADO.md](docs/RELATORIO-APRENDIZADO.md).
 
@@ -104,7 +111,7 @@ A descrição detalhada do antes/depois, critério por critério, está em [docs
 
 - Não é uma cópia pixel a pixel do Figma; as diferenças intencionais estão documentadas no relatório.
 - A galeria repete a mesma foto em fundos diferentes, como o exemplo do layout.
-- Compra, carrinho, pedidos, login e cadastro são simulações; não há pagamento, checkout, entrega, senha nem backend de usuários. Não existe autenticação real: cadastros, carrinho e pedidos ficam só naquele navegador, não passam para outros computadores e se perdem se os dados do navegador forem apagados.
+- Compra, carrinho, pedidos, login e cadastro são simulações; não há pagamento, checkout transacional, entrega, senha real nem backend de usuários. Não existe autenticação real: cadastros, carrinho e pedidos ficam só naquele navegador, não passam para outros computadores e se perdem se os dados do navegador forem apagados.
 - Fotos e ícones vieram do Figma fornecido para fins acadêmicos.
 
 ## Integrantes
@@ -113,7 +120,7 @@ A descrição detalhada do antes/depois, critério por critério, está em [docs
 - Anderson Maia
 - Anderson Oliveira
 
-A equipe não tem nome definido. Os nomes são apresentados sem atribuir funções ou autoria de partes específicas.
+
 
 ## Documentos
 
@@ -143,4 +150,15 @@ No navegador online, tamanho/cor foram selecionados, um produto foi adicionado a
 
 O primeiro deploy revelou /categorias com erro 404 e um texto institucional antigo; ambos foram corrigidos e o mesmo projeto foi atualizado. Lint e build passaram novamente após os ajustes.
 
-Repositório público: https://github.com/phgomesbezerra/digital-store . O código está na raiz, com documentação e créditos dos três integrantes. Site: https://digital-store-pearl-three.vercel.app/ . Nenhum PR na documentação oficial nem envio ao professor foi feito.
+Repositório público: https://github.com/phgomesbezerra/digital-store . O código está na raiz, com documentação e créditos dos três integrantes. Site: https://digital-store-pearl-three.vercel.app/ .
+
+
+## Versão revisada dos sprints - 28/10/2026
+
+Demonstração da versão revisada: https://digital-store-revisao-sprints.vercel.app/
+
+Inclui hover lilás nos botões Comprar das coleções, mini-carrinho, checkout com recibo e até cinco cadastros fictícios editáveis. O site anterior continua em endereço separado, sem atualização automática por Git.
+
+Use apenas dados inventados. No checkout, você pode ajustar os dados daquele pedido sem mudar o cadastro. O recibo preserva uma cópia da simulação; editar ou excluir o cadastro não altera os recibos anteriores. Recibos podem ser removidos em Meus Pedidos. Não existe login social, recuperação de senha, cobrança ou emissão de boleto real.
+
+Guia desta revisão: [REVIEW-FOUR-BLOCKS.md](REVIEW-FOUR-BLOCKS.md).

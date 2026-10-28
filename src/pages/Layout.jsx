@@ -7,12 +7,15 @@ export default function Layout({ children }) {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [pathname]);
+  const authRoute = ["/login", "/cadastro", "/cadastro/dados"].includes(
+    pathname,
+  );
   return (
     <>
       <a className="skip-link" href="#conteudo">
         Pular para o conteúdo
       </a>
-      <Header key={search} />
+      {!authRoute && <Header key={search} />}
       <main id="conteudo">{children ?? <Outlet />}</main>
       <Footer />
     </>

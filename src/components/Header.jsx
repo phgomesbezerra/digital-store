@@ -1,15 +1,20 @@
 import { useEffect, useState } from "react";
 import { Link, NavLink, useNavigate, useSearchParams } from "react-router";
 import Logo from "./Logo";
-import { loadCart, cartCount, CART_CHANGED } from "../services/demoCart";
+import MiniCart from "./MiniCart";
+import {
+  loadProfile,
+  PROFILE_CHANGED,
+  leaveDemo,
+} from "../services/demoProfile";
 export default function Header() {
-  const [count, setCount] = useState(() => cartCount(loadCart()));
+  const [profile, setProfile] = useState(loadProfile);
   useEffect(() => {
-    const update = () => setCount(cartCount(loadCart()));
-    window.addEventListener(CART_CHANGED, update);
+    const update = () => setProfile(loadProfile());
+    window.addEventListener(PROFILE_CHANGED, update);
     window.addEventListener("storage", update);
     return () => {
-      window.removeEventListener(CART_CHANGED, update);
+      window.removeEventListener(PROFILE_CHANGED, update);
       window.removeEventListener("storage", update);
     };
   }, []);
@@ -62,24 +67,22 @@ export default function Header() {
               ⌕
             </button>
           </form>
-          <div className="account">
-            <Link to="/cadastro">Cadastre-se</Link>
-            <Link className="button" to="/login">
-              Entrar
-            </Link>
-          </div>
-          <Link
-            className="cart cart-link"
-            to="/carrinho"
-            aria-label={
-              count > 0
-                ? `Abrir carrinho de demonstração, ${count} ${count === 1 ? "item" : "itens"}`
-                : "Abrir carrinho de demonstração, vazio"
-            }
-          >
-            <img src="/store/mini-cart.svg" width="28" height="28" alt="" />
-            {count > 0 && <span className="cart-badge">{count}</span>}
-          </Link>
+          {profile ? (
+            <div className="account demo-account">
+              <Link to="/perfil">♙ Olá {profile.nome.split(" ")[0]}</Link>
+              <button className="text-link" onClick={() => leaveDemo()}>
+                Sair
+              </button>
+            </div>
+          ) : (
+            <div className="account">
+              <Link to="/cadastro">Cadastre-se</Link>
+              <Link className="button" to="/login">
+                Entrar
+              </Link>
+            </div>
+          )}
+          <MiniCart />
         </div>
         {open && (
           <button
@@ -117,12 +120,39 @@ export default function Header() {
             </NavLink>
           ))}
           <div className="mobile-account">
-            <Link className="button" to="/login" onClick={() => setOpen(false)}>
-              Entrar
-            </Link>
-            <Link to="/cadastro" onClick={() => setOpen(false)}>
-              Cadastre-se
-            </Link>
+            {profile ? (
+              <>
+                <Link
+                  className="button"
+                  to="/perfil"
+                  onClick={() => setOpen(false)}
+                >
+                  Meu Perfil
+                </Link>
+                <button
+                  className="text-link"
+                  onClick={() => {
+                    leaveDemo();
+                    setOpen(false);
+                  }}
+                >
+                  Sair
+                </button>
+              </>
+            ) : (
+              <>
+                <Link
+                  className="button"
+                  to="/login"
+                  onClick={() => setOpen(false)}
+                >
+                  Entrar
+                </Link>
+                <Link to="/cadastro" onClick={() => setOpen(false)}>
+                  Cadastre-se
+                </Link>
+              </>
+            )}
           </div>
         </nav>
       </div>

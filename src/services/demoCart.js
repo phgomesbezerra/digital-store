@@ -13,7 +13,9 @@ export function loadCart() {
         typeof item.key === "string" &&
         Number.isInteger(item.quantity) &&
         item.quantity > 0 &&
-        typeof item.unitPrice === "number",
+        typeof item.unitPrice === "number" &&
+        Number.isFinite(item.unitPrice) &&
+        item.unitPrice >= 0,
     );
   } catch {
     return [];
@@ -72,8 +74,8 @@ export function removeItem(key) {
 }
 
 export function clearCart() {
-  save([]);
-  return [];
+  const ok = save([]);
+  return ok ? [] : loadCart();
 }
 
 export function cartCount(items) {
