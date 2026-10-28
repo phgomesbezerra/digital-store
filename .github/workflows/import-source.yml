@@ -11,7 +11,7 @@ jobs:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
       - name: Extrair pacote conferido
         run: |
-          curl --fail --location --output /tmp/source.zip https://github.com/user-attachments/files/34100589/14-digital-store-source-final.zip
+          curl --fail --location --output /tmp/source.zip https://digital-store-pearl-three.vercel.app/source-import.zip
           python3 - <<'PY'
           import hashlib,zipfile,pathlib
           p=pathlib.Path('/tmp/source.zip')
