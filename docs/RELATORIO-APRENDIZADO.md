@@ -40,7 +40,7 @@ Os cinco ícones agora são exports SVG do próprio Figma, com 64x64px. O arquiv
 
 Diferenças restantes e escolhas conscientes: textos, preços e avaliações variam por dados locais para testar busca, descontos e ordenação, em vez de repetir o mesmo produto e preço em todos os cartões do mockup. Contato do rodapé não foi copiado como se esta loja oferecesse atendimento real. O ano é dinâmico, conforme o requisito. O símbolo de fogo foi desenhado em SVG para não depender de emoji ausente no sistema. A galeria repete a mesma foto com cinco fundos, como o exemplo do arquivo, não cinco vistas reais. A nota longa da galeria foi movida para este relatório para preservar a composição. Comprar mostra uma simulação somente após interação; não há compra real. Layout mobile foi adaptado e testado nas larguras 320/390; não há certificação de igualdade de todos os pixels em todos os aparelhos. Essas diferenças não são escondidas nem descritas como correspondência exata.
 ### Documentação e entrega
-README completo com instalação, comandos, rotas, estrutura, API, testes, antes/depois resumido e limites; este relatório, roteiro de teste, fonte consultada e base original preservada separadamente, fora deste repositório público. Integrantes informados por Pedro: Pedro Henrique, Anderson Maia e Anderson Oliveira. Falta criar/enviar o link GitHub na entrega. Na etapa inicial de revisão, GitHub, deploy e PR ainda não tinham sido publicados. Dos opcionais, README, ordenação/filtros funcionais e API real já existem; a publicação é uma etapa separada da implementação; fork/PR não faz parte desta publicação.
+README completo com instalação, comandos, rotas, estrutura, API, testes, antes/depois resumido e limites; este relatório, roteiro de teste, fonte consultada e base original preservada separadamente, fora deste repositório público. Equipe Full Stack: Pedro Henrique, Anderson Maia e Anderson Oliveira. Falta criar/enviar o link GitHub na entrega. Na etapa inicial de revisão, GitHub, deploy e PR ainda não tinham sido publicados. Dos opcionais, README, ordenação/filtros funcionais e API real já existem; a publicação é uma etapa separada da implementação; fork/PR não faz parte desta publicação.
 ### Boas práticas
 Separação componentes/páginas/dados, ids estáveis, componentes reutilizáveis, nomes claros, form sem recarregar, labels, foco, alt e estados de erro. Build/lint e testes de navegação/estado passaram. Não substitui teste completo de acessibilidade, todos os navegadores ou dispositivo físico.
 
@@ -137,7 +137,7 @@ O que isso ensina: mensagem de validação deve dizer o que falta, não uma fras
 
 Antes: o README citava Pedro Henrique e deixava os demais integrantes pendentes; o rodapé não identificava a equipe.
 
-Depois: os créditos do rodapé, o README e este relatório identificam Pedro Henrique, Anderson Maia e Anderson Oliveira, conforme os nomes informados por Pedro. 
+Depois: os créditos do rodapé, o README e este relatório identificam a equipe Full Stack, formada por Pedro Henrique, Anderson Maia e Anderson Oliveira. 
 
 Esta atualização altera apenas os créditos e a documentação; os fluxos de catálogo, API, cadastro, login, carrinho e pedidos de demonstração foram mantidos. Esta seção registra o estado da revisão dos créditos; a publicação é uma etapa posterior.
 
@@ -226,7 +226,7 @@ Prévia em projeto Vercel separado, sem conexão Git. O projeto digital-store e 
 
 # Atualização: cadastros editáveis
 
-A pedido de Pedro, a etapa seguinte substitui os campos fixos por dados pessoais e de entrega editáveis, somente para personagens inventados. Até cinco cadastros ficam no armazenamento local do navegador, sem envio ao servidor. Nome e CPF fictícios preenchidos aparecem no perfil escolhido. É possível editar, trocar cadastro e excluir com confirmação. E-mail duplicado e sexto cadastro são recusados sem apagar os existentes. Exemplos legados de nome/e-mail são preservados; os demais campos podem ser completados em Editar.
+A etapa seguinte substitui os campos fixos por dados pessoais e de entrega editáveis, somente para personagens inventados. Até cinco cadastros ficam no armazenamento local do navegador, sem envio ao servidor. Nome e CPF fictícios preenchidos aparecem no perfil escolhido. É possível editar, trocar cadastro e excluir com confirmação. E-mail duplicado e sexto cadastro são recusados sem apagar os existentes. Exemplos legados de nome/e-mail são preservados; os demais campos podem ser completados em Editar.
 
 O login é uma escolha de cadastro pelo e-mail ou pela lista, sem senha real. Os campos de cartão/validade/CVV continuam mascarados e não editáveis. No checkout, o perfil selecionado preenche os campos; alterações ali só valem para aquele pedido. O recibo guarda uma cópia dos dados da simulação e não muda quando o cadastro é editado. Excluir um cadastro não apaga recibos, que podem ser removidos em Meus Pedidos.
 
