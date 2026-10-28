@@ -1,0 +1,109 @@
+[
+  {
+    "test": "home 320px (com API)",
+    "pass": true,
+    "overflow": false,
+    "missing": []
+  },
+  {
+    "test": "products 320px (com API)",
+    "pass": true,
+    "overflow": false,
+    "missing": []
+  },
+  {
+    "test": "detail 320px (com API)",
+    "pass": true,
+    "overflow": false,
+    "missing": []
+  },
+  {
+    "test": "home 390px (com API)",
+    "pass": true,
+    "overflow": false,
+    "missing": []
+  },
+  {
+    "test": "products 390px (com API)",
+    "pass": true,
+    "overflow": false,
+    "missing": []
+  },
+  {
+    "test": "detail 390px (com API)",
+    "pass": true,
+    "overflow": false,
+    "missing": []
+  },
+  {
+    "test": "home 1280px (com API)",
+    "pass": true,
+    "overflow": false,
+    "missing": []
+  },
+  {
+    "test": "products 1280px (com API)",
+    "pass": true,
+    "overflow": false,
+    "missing": []
+  },
+  {
+    "test": "detail 1280px (com API)",
+    "pass": true,
+    "overflow": false,
+    "missing": []
+  },
+  {
+    "test": "GET /api/products lista 15",
+    "pass": true
+  },
+  {
+    "test": "GET /api/products/1",
+    "pass": true
+  },
+  {
+    "test": "GET /api/products/99 retorna 404",
+    "pass": true
+  },
+  {
+    "test": "Paginas consomem /api/products",
+    "pass": true
+  },
+  {
+    "test": "Busca Enter altera URL e filtra (com API)",
+    "pass": true
+  },
+  {
+    "test": "Ordenacao maior preco (com API)",
+    "pass": true
+  },
+  {
+    "test": "Filtro Nike (com API)",
+    "pass": true
+  },
+  {
+    "test": "Detalhe produto via API",
+    "pass": true
+  },
+  {
+    "test": "Produto inexistente (com API)",
+    "pass": true
+  },
+  {
+    "test": "Rota 404",
+    "pass": true
+  },
+  {
+    "test": "Fallback local sem API: home",
+    "pass": true
+  },
+  {
+    "test": "Fallback local sem API: filtro",
+    "pass": true
+  },
+  {
+    "test": "Sem erros JS",
+    "pass": true,
+    "nota": "unicas falhas de rede foram os 404 esperados do teste de produto inexistente"
+  }
+]

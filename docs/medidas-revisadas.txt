@@ -1,0 +1,33 @@
+home {
+  '.header': { x: 0, y: 0, w: 1440, h: 192 },
+  '.hero': { x: 0, y: 192, w: 1440, h: 681 },
+  '.collections': { x: 100, y: 971, w: 1240, h: 251 },
+  '.categories': { x: 100, y: 1382, w: 1240, h: 137 },
+  '.product-grid': { x: 100, y: 1699, w: 1240, h: 916.375 },
+  '.special': { x: 0, y: 2737.375, w: 1440, h: 553 },
+  footer: { x: 0, y: 3290.375, w: 1440, h: 454 },
+  '.gallery-stage': { x: 560, y: 262.5, w: 745, h: 540 },
+  '.catalog': null
+}
+products {
+  '.header': { x: 0, y: 0, w: 1440, h: 192 },
+  '.hero': null,
+  '.collections': null,
+  '.categories': null,
+  '.product-grid': { x: 436, y: 332, w: 904, h: 2400.125 },
+  '.special': null,
+  footer: { x: 0, y: 2822.125, w: 1440, h: 454 },
+  '.gallery-stage': null,
+  '.catalog': { x: 100, y: 332, w: 1240, h: 2400.125 }
+}
+detail {
+  '.header': { x: 0, y: 0, w: 1440, h: 192 },
+  '.hero': null,
+  '.collections': null,
+  '.categories': null,
+  '.product-grid': { x: 100, y: 1098.59375, w: 1240, h: 430.1875 },
+  '.special': null,
+  footer: { x: 0, y: 1668.78125, w: 1440, h: 454 },
+  '.gallery-stage': { x: 100, y: 273.59375, w: 700, h: 571 },
+  '.catalog': null
+}
