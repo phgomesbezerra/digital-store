@@ -2,6 +2,8 @@
 
 Loja virtual desenvolvida em React como projeto final do curso de Front-end da Digital College, a partir do layout DRIP STORE no Figma. Projeto acadêmico de demonstração, com catálogo, carrinho e pedidos simulados.
 
+Desenvolvida pela equipe Full Stack: Pedro Henrique, Anderson Maia e Anderson Oliveira.
+
 ## Funcionalidades
 
 - **Home** com destaque, coleções, categorias e produtos em alta
@@ -103,7 +105,7 @@ Este repositório começou de uma base de exercícios que ainda não era uma loj
 
 A versão atual implementa a loja do layout: rotas próprias, catálogo com busca, filtros e ordenação, galeria com miniaturas, compra simulada com carrinho e relatório de pedidos de demonstração, responsividade, fonte Inter e as seis fotos originais recuperadas do Figma. Ícones e medidas das três páginas foram comparados aos frames originais exportados. Como extra, o catálogo passou a ser consumido de uma API real mantida no projeto.
 
-Créditos atualizados em 28/10/2026: Pedro Henrique, Anderson Maia e Anderson Oliveira. Antes, os demais integrantes estavam pendentes de confirmação; agora os três nomes constam no rodapé e na documentação.
+Créditos atualizados em 28/10/2026: a equipe Full Stack reúne Pedro Henrique, Anderson Maia e Anderson Oliveira. Antes, os demais integrantes estavam pendentes de confirmação; agora os três nomes constam no rodapé e na documentação.
 
 A descrição detalhada do antes/depois, critério por critério, está em [docs/RELATORIO-APRENDIZADO.md](docs/RELATORIO-APRENDIZADO.md).
 
@@ -114,7 +116,7 @@ A descrição detalhada do antes/depois, critério por critério, está em [docs
 - Compra, carrinho, pedidos, login e cadastro são simulações; não há pagamento, checkout transacional, entrega, senha real nem backend de usuários. Não existe autenticação real: cadastros, carrinho e pedidos ficam só naquele navegador, não passam para outros computadores e se perdem se os dados do navegador forem apagados.
 - Fotos e ícones vieram do Figma fornecido para fins acadêmicos.
 
-## Integrantes
+## Equipe Full Stack
 
 - Pedro Henrique
 - Anderson Maia
